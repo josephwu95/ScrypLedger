@@ -1,6 +1,26 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "allowJs": true, // Allow JavaScript files to be compiled.
+    "baseUrl": ".",
+    "paths": {
+      "@*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@types/*": ["./src/types/types"],
+      "@pages/*": ["./src/pages/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@constants/*": ["./src/constants/*"],
+      "@mocks/*": ["./mocks/*"],
+      "@assets/*": ["./assets/*"],
+      "@db/*": ["./src/mongodb/*"],
+
+      // TODO: Remove
+      // Backward compatibility, should not be used anymore.
+      "@src/*": ["./src/*"],
+    },
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }
