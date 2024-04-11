@@ -29,6 +29,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { colors, strings } from '@src/resource';
 import { SCREENS } from '@constants';
+
 // import i18n from "@src/i18n";
 
 const t = {
@@ -168,7 +169,6 @@ export function Home({ navigation }) {
 
   return (
     <Page fullWidth>  
-      
         <FlatList
         contentContainerStyle={contentContainerStyle}
         data={cardData}
