@@ -37,47 +37,14 @@ const t = {
 };
 
 const data = [
-  {
-    "id": 0,
-    "name": "Starbucks",
-    "cardHolderName": "Card Holder 0",
-    "cardNumber": "12345678901234",
-    "validity": "01/24",
-    "bgImage": "visa",
-    "transactions": [
-      {
-        "note": "Slack Technologies",
-        "amount": "123",
-        "currency": "$",
-        "date": "Today"
-      },
-      {
-        "note": "Uber",
-        "amount": "123",
-        "currency": "$",
-        "date": "Today"
-      },
-      {
-        "note": "Uber",
-        "amount": "123",
-        "currency": "$",
-        "date": "Today"
-      },
-      {
-        "note": "Uber",
-        "amount": "123",
-        "currency": "$",
-        "date": "Today"
-      }
-    ]
-  },
+  
   {
     "id": 1,
-    "name": "Bank Name 1",
+    "name": "Shell Gas",
     "cardHolderName": "Card Holder 1",
     "cardNumber": "12345678901234",
     "validity": "01/24",
-    "bgImage": "platinum",
+    "bgImage": "shellGas",
     "transactions": [
       {
         "note": "Slack Technologies",
@@ -101,11 +68,11 @@ const data = [
   },
   {
     "id": 52,
-    "name": "Bank Name 2",
+    "name": "Apple",
     "cardHolderName": "Card Holder 2",
     "cardNumber": "12345678901234",
     "validity": "01/24",
-    "bgImage": "gold",
+    "bgImage": "apple",
     "transactions": [
       {
         "note": "Slack Technologies",
@@ -126,7 +93,41 @@ const data = [
         "date": "Today"
       }
     ]
-  }
+  },
+  {
+    "id": 0,
+    "name": "Starbucks",
+    "cardHolderName": "Card Holder 0",
+    "cardNumber": "12345678901234",
+    "validity": "01/24",
+    "bgImage": "starbucks",
+    "transactions": [
+      {
+        "note": "Slack Technologies",
+        "amount": "123",
+        "currency": "$",
+        "date": "Today"
+      },
+      {
+        "note": "Uber",
+        "amount": "123",
+        "currency": "$",
+        "date": "Today"
+      },
+      {
+        "note": "Uber",
+        "amount": "123",
+        "currency": "$",
+        "date": "Today"
+      },
+      {
+        "note": "Uber",
+        "amount": "123",
+        "currency": "$",
+        "date": "Today"
+      }
+    ]
+  },
 ]
 
 const contentContainerStyleAndroid = (itemCount: number) => {
@@ -167,10 +168,8 @@ export function Home({ navigation }) {
 
   return (
     <Page fullWidth>  
+      
         <FlatList
-        ListHeaderComponent={
-          <PageHeader title={t.hello} />
-        }
         contentContainerStyle={contentContainerStyle}
         data={cardData}
         renderItem={renderItem}

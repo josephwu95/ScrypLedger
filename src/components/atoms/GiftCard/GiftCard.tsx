@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Image,
   ImageBackground,
   StyleSheet,
   Text,
@@ -8,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { HStack, Image, VStack } from '@gluestack-ui/themed'
 import Animated from 'react-native-reanimated';
 import { CardViewPropType } from '@src/types/cardListTypes';
 import { colors, dimen, images } from '@src/resource';
@@ -17,18 +17,32 @@ import { colors, dimen, images } from '@src/resource';
  * @param type Image type coming from card object
  * @returns Image for a type of card
  */
-const getCardImage = (type: string) => {
+// const getCardImage = (type: string) => {
+//   switch (type) {
+//     case 'starbucks':
+//       return images.starbucks;
+//     case 'delta':
+//       return images.delta;
+//     case 'amazon':
+//       return images.apple;
+//     default:
+//       return images.apple;
+//   }
+// };
+
+const getCardAttributes = (type: string) => {
   switch (type) {
-    case 'gold':
-      return images.gold;
-    case 'platinum':
-      return images.platinum;
-    case 'visa':
-      return images.visa;
+    case 'starbucks':
+      return { image: images.starbucks, color: '#1E3932' }; // Starbucks brand color
+    case 'shellGas':
+      return { image: images.shellGas, color: '#FFCC00' }; // Delta brand color
+    case 'apple':
+      return { image: images.apple, color: '#A2AAAD' }; // Apple brand color
     default:
-      return 'visa';
+      return { image: images.default, color: '#FFFFFF' }; // Default color
   }
 };
+
 
 const groupCreditCardNumber = (number: string): string | undefined => {
   // Remove any non-digit characters from the input
@@ -43,29 +57,32 @@ const groupCreditCardNumber = (number: string): string | undefined => {
   return formattedNumber;
 };
 
-export function GiftCard (props: CardViewPropType) {
+export function GiftCard(props: CardViewPropType) {
   const { card } = props;
-  const { cardHolderName, cardNumber, validity, name } = card;
-  const cardImage = getCardImage(card.bgImage);
+  const { cardHolderName, cardNumber, validity, name, bgImage } = card;
+  const { image: cardImage, color: cardColor } = getCardAttributes(bgImage);
   const formattedCardNumber = groupCreditCardNumber(cardNumber);
+
   return (
     <Animated.View
       sharedTransitionTag={`imageview-${card.id}`}
-      style={{ ...styles.container }}>
-      <ImageBackground style={styles.imageBackground} source={cardImage}>
-        <View style={styles.layerView}>
+      style={styles.container}>
+      <VStack style={[styles.layerView, { backgroundColor: cardColor, opacity:1 }]}>
+        {/* Apply the cardColor to the layerView's backgroundColor */}
+        <HStack>
+          <Image margin='$2' alt='1' source={cardImage}/>
           <View style={styles.topSection}>
             <Text style={styles.bankText}>{name}</Text>
           </View>
-          <View style={styles.middleSection}>
-            <Text style={styles.cardText}>{formattedCardNumber}</Text>
-          </View>
-          <View style={styles.bottomSection}>
-            <Text style={styles.cardHolderName}>{cardHolderName}</Text>
+        </HStack>
+          <HStack style={styles.middleSection}>
+          <Text style={styles.cardHolderName}>Balance:</Text>
+            <Text style={styles.cardHolderName}>100</Text>
+          </HStack>
+          {/* <View style={styles.bottomSection}>
             <Text style={styles.validity}>{validity}</Text>
-          </View>
-        </View>
-      </ImageBackground>
+          </View> */}
+      </VStack>
     </Animated.View>
   );
 };
@@ -84,15 +101,10 @@ const styles = StyleSheet.create({
     fontSize: dimen.mediumText,
     fontWeight: 'bold',
   },
-  imageBackground: {
-    flex: 1,
-    width: '100%',
-    resizeMode: 'stretch',
-  },
   layerView: {
     flex: 1,
-    opacity: 0.7,
-    backgroundColor: 'black',
+    width: '100%',
+    opacity: 0.6,
   },
   topSection: {
     flex: 1,
@@ -102,9 +114,9 @@ const styles = StyleSheet.create({
     paddingTop: 12,
   },
   middleSection: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-end',
+    margin:10,
+    marginTop:-20
   },
   bankText: { fontWeight: '900', fontSize: 30, color: colors.white },
   cardText: {

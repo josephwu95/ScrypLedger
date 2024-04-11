@@ -2,9 +2,15 @@
  * To store all the images
  */
 export const images = {
-  visa: require('./images/card-backgrounds/1.jpg'),
-  gold: require('./images/card-backgrounds/2.jpg'),
-  platinum: require('./images/card-backgrounds/3.jpg'),
+  amazon: require('@assets/cards/amazon.png'),
+  apple: require('@assets/cards/apple.png'),
+  delta: require('@assets/cards/delta.png'),
+  starbucks: require('@assets/cards/starbucks.png'),
+  shellGas: require('@assets/cards/shell.png'),
+  regalCinema: require('@assets/cards/regal.png'),
+  mcDonalds: require('@assets/cards/mcdonalds.png'),
+  sephora: require('@assets/cards/Sephora.png'),
+  default: require('@assets/cards/Sephora.png'),
 };
 
 /**

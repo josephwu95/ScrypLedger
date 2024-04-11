@@ -5,8 +5,8 @@ import { BottomStack, STACKS, RootStack } from '../types/routes';
 import { Tabs } from './Tabs/tab';
 
 const Stack = createNativeStackNavigator<RootStack>();
-export function Routes() {
 
+export function Routes() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
