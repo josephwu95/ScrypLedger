@@ -21,7 +21,10 @@ export function Tabs() {
           headerShown: false,
           tabBarShowLabel: false,
           tabBarActiveTintColor: '$primary',
-          tabBarStyle: { height: 80 },
+          tabBarStyle: { 
+            height: 80,
+            backgroundColor: '#f3faff' // Set the background color here
+          },
         })}
       >
         <Tab.Screen

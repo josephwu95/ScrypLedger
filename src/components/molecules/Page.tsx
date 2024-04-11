@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: '100%',
-    backgroundColor:'#FFF',
+    backgroundColor:'#f3faff',
     padding:10
   },
   circle: {
