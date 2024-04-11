@@ -11,6 +11,7 @@ import {
   View,
 } from 'react-native';
 import { TransactionItem } from '@components/atoms/TransactionItem/TransactionItem';
+import { Page } from '@components/molecules/Page';
 
 export function GiftCardDetails ({navigation, route}) {
   const { data } = route.params
@@ -20,6 +21,7 @@ export function GiftCardDetails ({navigation, route}) {
   };
 
   return (
+      <Page fullWidth>
       <ScrollView bounces={false} style={styles.scrollContainer}>
       <View style={styles.container}>
         {/* <GiftCard card={data} /> */}
@@ -35,6 +37,7 @@ export function GiftCardDetails ({navigation, route}) {
         </View>
       </View>
     </ScrollView>
+    </Page>
   )
 }
 

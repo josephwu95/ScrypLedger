@@ -51,6 +51,7 @@ export function Page({
         containerStyle,
       ]}
     >
+      <View style={styles.circle}/>
       <Box h="100%" px={fullWidth ? 0 : 5} {...props}>
         {children}
       </Box>
@@ -109,6 +110,16 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor:'#FFF',
     padding:10
+  },
+  circle: {
+    width: 450, // Diameter of the circle
+    height: 400, // Diameter of the circle
+    borderRadius: 200, // Half the width/height to make it a perfect circle
+    backgroundColor: '#e7f5ff',
+    position: 'absolute',
+    top: -250, // Adjust this value to position the circle's top edge
+    alignSelf: 'center', // Centers the circle horizontally
+    zIndex: -1, // Ensures it's behind your other content but above the background
   },
 });
 

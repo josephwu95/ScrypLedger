@@ -4,8 +4,10 @@ import { GiftCardDetails } from "./GiftCardDetails";
 import { SCREENS } from "@constants";
 import { strings } from '@src/resource';
 import { BackButton } from "@components/atoms/BackButton/BackButton";
+import { CustomHeader } from "@components/atoms/CustomHeader";
 
 const Stack = createNativeStackNavigator();
+
 const defaultScreenOptions = {
   headerShown: true,
   headerTitle: "",
@@ -17,7 +19,9 @@ export default function HomeStack() {
   return (
     <Stack.Navigator
       screenOptions={({ navigation }) => ({
-        headerShown: false,
+        headerShown: true,
+        header: () => <CustomHeader />, // Use CustomHeader as the header for all screens
+        headerShadowVisible: false,
       })}
     >
       <Stack.Screen
