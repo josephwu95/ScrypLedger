@@ -1,3 +1,4 @@
+import Realm from "realm";
 import React, { useEffect } from "react";
 import { GluestackUIProvider, Text, Box, VStack } from "@gluestack-ui/themed";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -6,9 +7,8 @@ import { StyleSheet } from "react-native";
 import { RootNavigator } from './src/pages/root';
 import { config } from "./config/gluestack-ui.config"
 import { QueryClient, QueryClientProvider } from 'react-query';
-// import { config } from "@gluestack-ui/config"; // Optional if you want to use default theme
-// import { LocalRealmContext } from "@mongodb/context";
-// import { LoggerVersion } from "@components/atoms/LoggerVersion";
+import { LocalRealmContext } from "@src/mongodb/context";
+import { LoggerVersion } from "@components/atoms/LoggerVersion";
 import { sepolia, WagmiConfig } from 'wagmi'
 import { defaultWagmiConfig } from '@web3modal/wagmi-react-native'
 
@@ -25,9 +25,11 @@ const metadata = {
 }
 const chains = [sepolia]
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata })
+const { RealmProvider } = LocalRealmContext;
 
 export default function App() {
   return (
+    <RealmProvider> 
       <WagmiConfig config={wagmiConfig}>
         <StyledProvider config={config}>
             <GestureHandlerRootView style={styles.AppWrapper}>
@@ -35,6 +37,8 @@ export default function App() {
             </GestureHandlerRootView>
         </StyledProvider>
       </WagmiConfig>
+      <LoggerVersion/>
+    </RealmProvider>
   );
 }
 
