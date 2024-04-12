@@ -37,22 +37,7 @@ export interface Card {
   /**
    * Image for the card
    */
-  bgImage: string;
-
-  /**
-   * Name of the owner
-   */
-  cardHolderName: string;
-
-  /**
-   * Card Number
-   */
-  cardNumber: string;
-
-  /**
-   * Expiry date of the card
-   */
-  validity: string;
+  logo: string;
 
   /**
    * Transaction list for of the cards

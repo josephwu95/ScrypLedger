@@ -15,7 +15,7 @@ export const config: Realm.Configuration = {
     GiftCard,
     Transaction,
   ],
-  schemaVersion: 0,
+  schemaVersion: 3,
   deleteRealmIfMigrationNeeded: true, // Use only during development
 };
 // class RealmSingleTon {

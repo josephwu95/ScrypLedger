@@ -59,13 +59,13 @@ const groupCreditCardNumber = (number: string): string | undefined => {
 
 export function GiftCard(props: CardViewPropType) {
   const { card } = props;
-  const { cardHolderName, cardNumber, validity, name, bgImage } = card;
-  const { image: cardImage, color: cardColor } = getCardAttributes(bgImage);
-  const formattedCardNumber = groupCreditCardNumber(cardNumber);
+  const { name, logo } = card;
+  const { image: cardImage, color: cardColor } = getCardAttributes(logo);
+  // const formattedCardNumber = groupCreditCardNumber(cardNumber);
 
   return (
     <Animated.View
-      sharedTransitionTag={`imageview-${card.id}`}
+      sharedTransitionTag={`imageview-${card.asset_id}`}
       style={styles.container}>
       <VStack style={[styles.layerView, { backgroundColor: cardColor, opacity:1 }]}>
         {/* Apply the cardColor to the layerView's backgroundColor */}

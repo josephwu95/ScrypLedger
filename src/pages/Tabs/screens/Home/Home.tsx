@@ -1,3 +1,4 @@
+// npx expo start --dev-client
 import { GiftCardStackRenderItem } from "@components/molecules/GiftCardStack";
 import {
   PagePadding,
@@ -29,7 +30,8 @@ import Animated, {
 } from 'react-native-reanimated';
 import { colors, strings } from '@src/resource';
 import { SCREENS } from '@constants';
-
+import { MODEL_NAMES } from "@constants";
+import { LocalRealmContext } from "@mongodb/context";
 // import i18n from "@src/i18n";
 
 const t = {
@@ -40,12 +42,10 @@ const t = {
 const data = [
   
   {
-    "id": 1,
+    "asset_id": 1,
     "name": "Shell Gas",
-    "cardHolderName": "Card Holder 1",
-    "cardNumber": "12345678901234",
-    "validity": "01/24",
-    "bgImage": "shellGas",
+    "logo": "shellGas",
+    "balance": "1000",
     "transactions": [
       {
         "note": "Slack Technologies",
@@ -73,7 +73,8 @@ const data = [
     "cardHolderName": "Card Holder 2",
     "cardNumber": "12345678901234",
     "validity": "01/24",
-    "bgImage": "apple",
+    "logo": "apple",
+    "balance": "1000",
     "transactions": [
       {
         "note": "Slack Technologies",
@@ -101,7 +102,8 @@ const data = [
     "cardHolderName": "Card Holder 0",
     "cardNumber": "12345678901234",
     "validity": "01/24",
-    "bgImage": "starbucks",
+    "logo": "starbucks",
+    "balance": "1000",
     "transactions": [
       {
         "note": "Slack Technologies",
@@ -147,6 +149,30 @@ export function Home({ navigation }) {
   const [cardData, setCardData] = useState(data);
   const contentContainerStyle = contentContainerStyleAndroid(cardData.length);
   const sharedValue = useSharedValue(0);
+  const { useRealm, useQuery } = LocalRealmContext;
+  const realm = useRealm();
+  const users = useQuery(MODEL_NAMES.User); // Replace 'User' with MODEL_NAMES.User if necessary
+  console.log(users)
+  
+  useEffect(() => {
+    // Check if there are any users in the database
+    if (users.isEmpty()) {
+      try {
+        // Writing to the database
+        realm.write(() => {
+          realm.create(MODEL_NAMES.User, {
+            id: new Realm.BSON.ObjectId(),
+            username: 'NewUser' // Example username
+          });
+        });
+        console.log("New user added to the database!");
+      } catch (error) {
+        console.error("Failed to write to the database:", error);
+      }
+    } else {
+      console.log("User already exists in the database.");
+    }
+  }, [realm, users]); // Depend on realm and users to re-run if they change
   
   const onScrollFlatList = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     let value = event.nativeEvent.contentOffset.y;

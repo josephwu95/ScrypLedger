@@ -1,31 +1,8 @@
-import { Realm } from "@realm/react";
+import { Realm, BSON } from "@realm/react";
 import { MODEL_NAMES } from "@constants";
 
-export class Transaction extends Realm.Object<Transaction> {
-  id!: Realm.BSON.ObjectId;  
-  timestamp!: number | null;
-  from: string | null;
-  to: string | null;
-  amount!: number | null;
-
-  constructor(
-    realm: Realm,
-    id: Realm.BSON.ObjectId,
-    timestamp: number,
-    from: string,
-    to: string,
-    amount: number
-  ) {
-    super(realm, {
-      id: id,
-      timestamp,
-      from,
-      to,
-      amount
-    });
-  }
-
-  static schema: Realm.ObjectSchema = {
+export class Transaction extends Realm.Object {
+  static schema = {
     name: MODEL_NAMES.Transaction,
     primaryKey: "id",
     properties: {
@@ -33,7 +10,9 @@ export class Transaction extends Realm.Object<Transaction> {
       timestamp: "int?",
       from: "string",
       to: "string",
-      amount:"int"
+      amount: "int?",
     },
   };
 }
+
+export default Transaction;

@@ -1,37 +1,18 @@
-import Realm from 'realm';
-import { MODEL_NAMES } from '@constants';
+import { Realm, BSON } from "@realm/react";
+import { MODEL_NAMES } from "@constants";
 
-export class GiftCard extends Realm.Object<GiftCard> {
-  id: Realm.BSON.ObjectId;
-  asset_id?: number; 
-  balance?: number;
-  logo?: string;
-  
-  constructor(
-    realm: Realm,
-    id: Realm.BSON.ObjectId, 
-    asset_id: number,
-    balance: number,
-    logo: string,
-  ) {
-    super(realm, {
-      id: id,
-      asset_id,
-      balance,
-      logo
-    });
-  }
-  
-  static schema: Realm.ObjectSchema = {
+export class GiftCard extends Realm.Object {
+  static schema = {
     name: MODEL_NAMES.GiftCard,
     primaryKey: 'id',
     properties: {
       id: 'objectId',
-      asset_id: 'int?', 
+      giftcard_name: 'string?',
       balance: 'int?', 
-      logo: 'string?', 
+      logo: 'string?',
+      transactions: { type: 'list', objectType: MODEL_NAMES.Transaction }
     },
   };
 }
 
-
+export default GiftCard;

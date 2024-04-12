@@ -6,36 +6,13 @@ import { PagePadding, ScrollablePage, PageHeader, Page } from "@components/molec
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import '@src/types/polyfills'
 import {createPublicClient, formatEther, http} from "viem";
-// import {mainnet} from "viem/chains";
-// import {useWalletConnectModal, WalletConnectModal} from "@walletconnect/modal-react-native";
-// import { useWeb3Modal } from '@web3modal/wagmi-react-native'
 import { WagmiConfig,useContractRead, useAccount } from 'wagmi'
 import { mainnet, polygon, arbitrum } from 'viem/chains'
 import { createWeb3Modal, defaultWagmiConfig, Web3Modal, useWeb3Modal } from '@web3modal/wagmi-react-native'
 import { VStack } from '@gluestack-ui/themed';
 import abi from '@src/resource/ercabi.json'
-
-// const publicClient = createPublicClient({
-//   chain: mainnet,
-//   transport: http(),
-// })
-
-// const [blockNumber, setBlockNumber] = useState(0n)
-  // const [gasPrice, setGasPrice] = useState(0n)
-  // const { open, isConnected, provider, address: wcAddress } = useWalletConnectModal()
-
-//   useEffect(() => {
-//     const getNetworkData = async () => {
-//       const [blockNumber, gasPrice] = await Promise.all([
-//           publicClient.getBlockNumber(),
-//           publicClient.getGasPrice(),
-//       ])
-//       setBlockNumber(blockNumber)
-//       setGasPrice(gasPrice)
-//     }
-
-//     getNetworkData();
-// }, []);
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { Alert } from 'react-native';
 
 
 const projectId = 'c0d7cf39bd4907f89c06185508701c2c'
@@ -88,7 +65,20 @@ export function PayTransfer() {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    // Show confirmation dialog
+    Alert.alert(
+      "Confirm Transaction",
+      "Do you want to commit a $50 transaction?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log('Transaction canceled'),
+          style: "cancel"
+        },
+        { text: "Confirm", onPress: () => console.log('Transaction confirmed') }
+      ],
+      { cancelable: false }
+    );
   };
 
   const renderCamera = () => {
@@ -122,17 +112,21 @@ export function PayTransfer() {
         <Text style={styles.paragraph}>Scan a barcode</Text>
         {renderCamera()}
         <TouchableOpacity
-          style={styles.button}
+          style={styles.buttonPay}
           onPress={() => setScanned(false)}
-          disabled={scanned}
         >
+          <MaterialIcons name="qr-code-scanner" size={20} color="white" />
           <Text style={styles.buttonText}>Scan QR to Start your job</Text>
         </TouchableOpacity>
         <View style={{marginVertical:30}}>
         
-          <TouchableOpacity style={styles.button} onPress={() => open()}>
-            <Text style={styles.buttonText}> Access Wallets</Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonPay}
+          onPress={() => open()}
+        >
+          <MaterialIcons name="account-balance-wallet" size={20} color="white" />
+          <Text style={styles.buttonText}>Access Wallets</Text>
+        </TouchableOpacity>
           <Web3Modal />
           {/* <View>
             {isLoading && <Text>Loading</Text>}
@@ -158,7 +152,7 @@ const styles = StyleSheet.create({
   },
   paragraph: {
     fontSize: 16,
-    marginBottom: 40,
+    marginBottom: 20,
   },
   cameraContainer: {
     width: '80%',
@@ -180,5 +174,20 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
+    marginLeft: 10,
+  },
+  buttonPay: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#007AFF', // iOS blue button color
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginVertical: 10,
+    elevation: 2, // subtle shadow on Android
+    shadowColor: '#000', // shadow for iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 1.5,
   },
 });
